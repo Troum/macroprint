@@ -1,0 +1,50 @@
+@import "vueperslides/dist/vueperslides.css";
+@import "./fonts.scss";
+@import "./overrides.scss";
+@import "./layouts/default.scss";
+@import "./pages/index.page.scss";
+@import "./pages/product.page.scss";
+@import "./pages/requirements.page.scss";
+@import "./pages/contacts.page.scss";
+@import "./pages/articles.page.scss";
+
+body {
+  overflow-x: hidden;
+  & * {
+    font-family: "DIN Pro", sans-serif;
+    font-style: normal;
+    font-weight: 300;
+  }
+
+  & .page {
+    &__margin {
+      margin: calc(40px + 78px) 0 0;
+    }
+
+    &__padding {
+      padding-left: 11.46% !important;
+      padding-right: 11.46% !important;
+      @media (max-width: 1220px) {
+        padding-left: 3.46% !important;
+        padding-right: 3.46% !important;
+      }
+      @media (min-width: 1220px) {
+        padding-left: 11.46% !important;
+        padding-right: 11.46% !important;
+      }
+    }
+  }
+  & h1 {
+    font-weight: 600;
+  }
+  & h2 {
+    font-weight: 300;
+    font-size: 40px;
+    line-height: 50px;
+  }
+  & h3 {
+    font-weight: 300;
+    font-size: 40px;
+    line-height: 50px;
+  }
+}

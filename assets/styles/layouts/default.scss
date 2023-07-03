@@ -1,0 +1,173 @@
+.default__layout {
+  font-family: DIN Pro, 'sans-serif';
+
+  & .top-info-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    @media (max-width: 1220px) {
+      flex-direction: column;
+    }
+
+    & .address-info-block {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 100%;
+
+      & .map-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        position: relative;
+
+        & .map {
+          color: #fff;
+          z-index: 1;
+        }
+
+        & .address {
+          display: inline-block;
+          margin-left: 8px;
+          color: #fff;
+          font-size: 14px;
+        }
+      }
+    }
+
+    & .phones-info-block {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 100%;
+      padding: 8px 20px;
+      background-color: #D24829;
+
+      & .phone-button {
+        opacity: 1;
+      }
+    }
+  }
+
+  & .top-bar {
+    padding-left: 165px;
+    padding-right: 165px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100% !important;
+
+    & .submenu__container {
+      margin-top: 25px !important;
+    }
+  }
+
+  & .footer {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 120px;
+    min-height: 471px;
+    max-height: 471px;
+    padding-top: 90px !important;
+    padding-right: 165px !important;
+    padding-left: 165px !important;
+    align-items: start;
+
+    &__title {
+      font-family: "DIN Pro", sans-serif;
+      font-style: normal;
+      font-weight: 200;
+      font-size: 20px;
+      line-height: 25px;
+      letter-spacing: -0.04em;
+      font-feature-settings: 'pnum'
+    }
+
+    & .address {
+      &__container {
+        display: block;
+        & .v-btn {
+          & :deep .v-btn__content {
+            flex-direction: column !important;
+          }
+        }
+      }
+
+      font-family: "DIN Pro", sans-serif;
+      font-style: normal;
+      font-weight: 200;
+      font-size: 16px;
+      line-height: 24px;
+    }
+
+    & .contacts {
+      font-family: "DIN Pro", sans-serif;
+      font-style: normal;
+      font-weight: 200;
+      font-size: 16px;
+      line-height: 24px;
+
+      &__container {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    & .schedule {
+      &__container {
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        flex-direction: column;
+        width: max-content;
+        @media (max-width: 1220px) {
+          row-gap: 6px;
+        }
+      }
+    }
+    @media (max-width: 360px) {
+      grid-template-columns: repeat(2, 45%);
+      grid-template-rows: minmax(72px, 227px);
+      grid-column-gap: 30px;
+      grid-row-gap: 60px;
+      max-height: 718px;
+      padding: 30px 20px !important;
+      align-items: start;
+      & * {
+        font-size: 12px !important;
+        line-height: 16px !important;
+      }
+    }
+    @media (min-width: 360px) and (max-width: 1220px) {
+      grid-template-columns: repeat(2, 40%);
+      grid-template-rows: minmax(72px, 227px);
+      grid-column-gap: 30px;
+      grid-row-gap: 60px;
+      max-height: 718px;
+      padding: 30px 20px !important;
+      align-items: start;
+      & * {
+        font-size: 14px !important;
+        line-height: 18px !important;
+      }
+    }
+  }
+}
+
+.main__menu {
+  &::before {
+    position: absolute;
+    top: calc(38px - 25px);
+    left: 46px;
+    content: url("/assets/images/vectors/polygon.svg");
+    display: block;
+    width: 33px;
+    height: 33px;
+    z-index: 99;
+  }
+}
