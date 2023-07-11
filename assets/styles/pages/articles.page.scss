@@ -1,0 +1,15 @@
+.articles {
+  &__container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 30px;
+    grid-auto-rows: minmax(500px, max-content);
+    margin-top: 50px;
+    @media (min-width: 1920px) {
+      grid-template-columns: repeat(6, 1fr);
+    }
+    @media (min-width: 3440px) {
+      grid-template-columns: repeat(8, 1fr);
+    }
+  }
+}

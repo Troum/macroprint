@@ -1,0 +1,1 @@
+import{u as e}from"./header.fd0041a5.js";import{V as a,a as r}from"./VRow.8d0518cf.js";import{c as t,b as o,o as s,e as c}from"./entry.9732c54d.js";import"./tag.daba6275.js";const f={__name:"index",setup(p){return e().setHeader("История компании"),(m,n)=>(s(),t(a,{fluid:!0,class:"d-block pa-0 ma-0"},{default:o(()=>[c(r,{class:"pa-0"})]),_:1}))}};export{f as default};

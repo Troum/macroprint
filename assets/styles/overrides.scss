@@ -1,0 +1,71 @@
+.vueperslides {
+  &.greeting {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+
+  &__bullets {
+    position: absolute;
+    left: calc(100% - 165px);
+    top: 0;
+    transform: rotate(90deg);
+    width: auto;
+    max-width: 388px;
+    z-index: 3;
+
+    & .vueperslides__bullet {
+      position: relative;
+
+      & .default {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: none;
+        width: 24px;
+        height: 24px;
+        border-radius: 24px;
+        border-width: 3px;
+      }
+
+      &--active {
+        & .default {
+          border-width: 3px;
+
+          & span {
+            color: transparent !important;
+            display: block;
+            background-color: #fff;
+            border-radius: 14px;
+            width: 14px;
+            height: 14px;
+          }
+        }
+      }
+
+      &::after {
+        display: block;
+        position: absolute;
+        content: '';
+        width: 1.35rem;
+        height: 3px;
+        background-color: #fff;
+        top: 50%;
+        left: 50%;
+        transform: translate(50%, -50%);
+      }
+
+      &:last-of-type {
+        &::after {
+          content: none;
+        }
+      }
+    }
+    @media (max-width: 1220px) {
+      display: none;
+    }
+  }
+}
