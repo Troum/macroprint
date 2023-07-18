@@ -149,6 +149,9 @@
       @media (min-width: 1920px) {
         grid-template-columns: repeat(6, 1fr);
       }
+      @media (min-width: 3340px) {
+        grid-template-columns: repeat(10, 1fr);
+      }
     }
     & h2 {
       font-family: DIN Pro, sans-serif;

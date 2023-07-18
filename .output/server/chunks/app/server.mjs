@@ -1,14 +1,14 @@
-import { hasInjectionContext, getCurrentInstance as getCurrentInstance$1, unref, version as version$1, watch, onScopeDispose, Fragment, reactive, computed, watchEffect, toRefs, capitalize, warn, defineComponent as defineComponent$1, inject as inject$1, ref, provide, shallowRef, createVNode, mergeProps, toRaw, h, effectScope, useSSRContext, createApp, isRef, isReactive, getCurrentScope, nextTick, onErrorCaptured, onServerPrefetch, resolveDynamicComponent, markRaw, toRef, isReadonly, defineAsyncComponent, isShallow, Transition } from 'vue';
+import { hasInjectionContext, getCurrentInstance as getCurrentInstance$1, unref, version as version$1, watch, onScopeDispose, Fragment, reactive, computed, watchEffect, toRefs, capitalize, warn, defineComponent as defineComponent$1, inject as inject$1, ref, provide, shallowRef, createVNode, mergeProps, toRaw, h, toRef, effectScope, useSSRContext, createApp, isRef, isReactive, getCurrentScope, nextTick, onErrorCaptured, onServerPrefetch, resolveDynamicComponent, markRaw, isReadonly, defineAsyncComponent, isShallow, Transition } from 'vue';
 import { $fetch as $fetch$1 } from 'ofetch';
 import { createHooks } from 'hookable';
 import { getContext, executeAsync } from 'unctx';
 import destr from 'destr';
 import { createError as createError$1, sanitizeStatusCode, setCookie, getCookie, deleteCookie } from 'h3';
+import { hasProtocol, parseURL, joinURL } from 'ufo';
 import { renderSSRHead } from '@unhead/ssr';
 import { getActiveHead, createServerHead as createServerHead$1 } from 'unhead';
 import { defineHeadPlugin } from '@unhead/shared';
 import { createMemoryHistory, createRouter, START_LOCATION, useRoute as useRoute$1 } from 'vue-router';
-import { hasProtocol, parseURL, joinURL } from 'ufo';
 import { parse } from 'cookie-es';
 import { isEqual as isEqual$1 } from 'ohash';
 import { stringify } from 'qs';
@@ -763,6 +763,15 @@ const showError = (_err) => {
   }
   return err;
 };
+const clearError = async (options = {}) => {
+  const nuxtApp = useNuxtApp();
+  const error = useError();
+  nuxtApp.callHook("app:error:cleared", options);
+  if (options.redirect) {
+    await useRouter().replace(options.redirect);
+  }
+  error.value = null;
+};
 const isNuxtError = (err) => !!(err && typeof err === "object" && "__nuxt_error" in err);
 const createError = (err) => {
   const _err = createError$1(err);
@@ -882,11 +891,8 @@ const unhead_KgADcZ0jPj = /* @__PURE__ */ defineNuxtPlugin({
     }
   }
 });
-const __nuxt_page_meta$7 = {
-  breadcrumb: "Новости компании"
-};
 const __nuxt_page_meta$6 = {
-  breadcrumb: "История компании"
+  breadcrumb: "Новости компании"
 };
 const __nuxt_page_meta$5 = {
   breadcrumb: "О компании"
@@ -908,20 +914,28 @@ const __nuxt_page_meta = {
 };
 const _routes = [
   {
-    name: (__nuxt_page_meta$7 == null ? void 0 : __nuxt_page_meta$7.name) ?? "company-articles",
-    path: (__nuxt_page_meta$7 == null ? void 0 : __nuxt_page_meta$7.path) ?? "/company/articles",
-    meta: __nuxt_page_meta$7 || {},
-    alias: (__nuxt_page_meta$7 == null ? void 0 : __nuxt_page_meta$7.alias) || [],
-    redirect: (__nuxt_page_meta$7 == null ? void 0 : __nuxt_page_meta$7.redirect) || void 0,
-    component: () => import('./_nuxt/index-7dce1066.mjs').then((m) => m.default || m)
+    name: "company-articles-slug",
+    path: "/company/articles/:slug()",
+    meta: {},
+    alias: [],
+    redirect: void 0,
+    component: () => import('./_nuxt/_slug_-7bb8b7c9.mjs').then((m) => m.default || m)
   },
   {
-    name: (__nuxt_page_meta$6 == null ? void 0 : __nuxt_page_meta$6.name) ?? "company-history",
-    path: (__nuxt_page_meta$6 == null ? void 0 : __nuxt_page_meta$6.path) ?? "/company/history",
+    name: (__nuxt_page_meta$6 == null ? void 0 : __nuxt_page_meta$6.name) ?? "company-articles",
+    path: (__nuxt_page_meta$6 == null ? void 0 : __nuxt_page_meta$6.path) ?? "/company/articles",
     meta: __nuxt_page_meta$6 || {},
     alias: (__nuxt_page_meta$6 == null ? void 0 : __nuxt_page_meta$6.alias) || [],
     redirect: (__nuxt_page_meta$6 == null ? void 0 : __nuxt_page_meta$6.redirect) || void 0,
-    component: () => import('./_nuxt/index-84744c40.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/index-3a96f81f.mjs').then((m) => m.default || m)
+  },
+  {
+    name: "company-history",
+    path: "/company/history",
+    meta: {},
+    alias: [],
+    redirect: void 0,
+    component: () => import('./_nuxt/index-6d421c9c.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$5 == null ? void 0 : __nuxt_page_meta$5.name) ?? "company",
@@ -929,7 +943,7 @@ const _routes = [
     meta: __nuxt_page_meta$5 || {},
     alias: (__nuxt_page_meta$5 == null ? void 0 : __nuxt_page_meta$5.alias) || [],
     redirect: (__nuxt_page_meta$5 == null ? void 0 : __nuxt_page_meta$5.redirect) || void 0,
-    component: () => import('./_nuxt/index-657c5ba1.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/index-92a3fe29.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$4 == null ? void 0 : __nuxt_page_meta$4.name) ?? "contacts",
@@ -937,7 +951,7 @@ const _routes = [
     meta: __nuxt_page_meta$4 || {},
     alias: (__nuxt_page_meta$4 == null ? void 0 : __nuxt_page_meta$4.alias) || [],
     redirect: (__nuxt_page_meta$4 == null ? void 0 : __nuxt_page_meta$4.redirect) || void 0,
-    component: () => import('./_nuxt/index-0b738d2c.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/index-91d9fe91.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$3 == null ? void 0 : __nuxt_page_meta$3.name) ?? "for-clients",
@@ -945,7 +959,7 @@ const _routes = [
     meta: __nuxt_page_meta$3 || {},
     alias: (__nuxt_page_meta$3 == null ? void 0 : __nuxt_page_meta$3.alias) || [],
     redirect: (__nuxt_page_meta$3 == null ? void 0 : __nuxt_page_meta$3.redirect) || void 0,
-    component: () => import('./_nuxt/index-50a563dd.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/index-2df74b32.mjs').then((m) => m.default || m)
   },
   {
     name: "for-clients-requirements",
@@ -953,7 +967,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/index-306ddf1b.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/index-647c785e.mjs').then((m) => m.default || m)
   },
   {
     name: "for-clients-requisites",
@@ -961,7 +975,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/index-4b79f0c1.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/index-99f2cfb7.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$2 == null ? void 0 : __nuxt_page_meta$2.name) ?? "index",
@@ -969,7 +983,7 @@ const _routes = [
     meta: __nuxt_page_meta$2 || {},
     alias: (__nuxt_page_meta$2 == null ? void 0 : __nuxt_page_meta$2.alias) || [],
     redirect: (__nuxt_page_meta$2 == null ? void 0 : __nuxt_page_meta$2.redirect) || void 0,
-    component: () => import('./_nuxt/index-badd5e83.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/index-0100a6da.mjs').then((m) => m.default || m)
   },
   {
     name: "products-slug",
@@ -977,7 +991,7 @@ const _routes = [
     meta: {},
     alias: [],
     redirect: void 0,
-    component: () => import('./_nuxt/_slug_-33b51f3e.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/_slug_-abcaa361.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta$1 == null ? void 0 : __nuxt_page_meta$1.name) ?? "products",
@@ -985,7 +999,7 @@ const _routes = [
     meta: __nuxt_page_meta$1 || {},
     alias: (__nuxt_page_meta$1 == null ? void 0 : __nuxt_page_meta$1.alias) || [],
     redirect: (__nuxt_page_meta$1 == null ? void 0 : __nuxt_page_meta$1.redirect) || void 0,
-    component: () => import('./_nuxt/index-a5ad8fb1.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/index-a868a847.mjs').then((m) => m.default || m)
   },
   {
     name: (__nuxt_page_meta == null ? void 0 : __nuxt_page_meta.name) ?? "vacancies",
@@ -993,7 +1007,7 @@ const _routes = [
     meta: __nuxt_page_meta || {},
     alias: (__nuxt_page_meta == null ? void 0 : __nuxt_page_meta.alias) || [],
     redirect: (__nuxt_page_meta == null ? void 0 : __nuxt_page_meta.redirect) || void 0,
-    component: () => import('./_nuxt/index-1b1719e1.mjs').then((m) => m.default || m)
+    component: () => import('./_nuxt/index-da096371.mjs').then((m) => m.default || m)
   }
 ];
 const routerOptions0 = {
@@ -3585,7 +3599,7 @@ const _wrapIf = (component, props, slots) => {
   } };
 };
 const layouts = {
-  macroprint: () => import('./_nuxt/macroprint-92de15db.mjs').then((m) => m.default || m)
+  macroprint: () => import('./_nuxt/macroprint-b858d1ee.mjs').then((m) => m.default || m)
 };
 const LayoutLoader = /* @__PURE__ */ defineComponent$1({
   name: "LayoutLoader",
@@ -3651,8 +3665,8 @@ const _sfc_main = {
   __name: "nuxt-root",
   __ssrInlineRender: true,
   setup(__props) {
-    const ErrorComponent = /* @__PURE__ */ defineAsyncComponent(() => import('./_nuxt/error-component-f84c21b8.mjs').then((r) => r.default || r));
-    const IslandRenderer = /* @__PURE__ */ defineAsyncComponent(() => import('./_nuxt/island-renderer-e2bad770.mjs').then((r) => r.default || r));
+    const ErrorComponent = /* @__PURE__ */ defineAsyncComponent(() => import('./_nuxt/error-component-e271ce80.mjs').then((r) => r.default || r));
+    const IslandRenderer = /* @__PURE__ */ defineAsyncComponent(() => import('./_nuxt/island-renderer-2648d483.mjs').then((r) => r.default || r));
     const nuxtApp = useNuxtApp();
     nuxtApp.deferHydration();
     nuxtApp.ssrContext.url;
@@ -3717,5 +3731,5 @@ const plugins = normalizePlugins(_plugins);
 }
 const entry$1 = (ctx) => entry(ctx);
 
-export { refElement as $, isObject as A, keyCodes as B, consoleWarn as C, useLocale as D, EventProp as E, getUid as F, isOn as G, pick as H, IconValue as I, wrapInArray as J, useToggleScope as K, filterInputAttrs as L, callEvent as M, clamp as N, deepEqual as O, findChildrenWithProvide as P, eventName as Q, appPageTransition as R, SUPPORTS_INTERSECTION as S, _wrapIf as T, appKeepalive as U, defineComponent as V, deprecate as W, focusChild as X, getPropertyFromItem as Y, consoleError as Z, _export_sfc as _, useRequestFetch as a, IN_BROWSER as a0, omit as a1, useRouter as a2, navigateTo as a3, useDisplay as b, createError as c, defineStore as d, entry$1 as default, useRtl as e, breakpoints as f, genericComponent as g, useNuxtApp as h, useRequestEvent as i, useRuntimeConfig as j, provideDefaults as k, provideTheme as l, makeThemeProps as m, getCurrentInstance as n, includes as o, propsFactory as p, destructComputed as q, resolveUnrefHeadInput as r, isCssColor as s, getCurrentInstanceName as t, useHead as u, convertToUnit as v, useIcon as w, flattenFragments as x, useProxiedModel as y, hasEvent as z };
+export { useLocale as $, refElement as A, IN_BROWSER as B, omit as C, useNuxtApp as D, EventProp as E, useDisplay as F, breakpoints as G, deepEqual as H, IconValue as I, wrapInArray as J, consoleWarn as K, includes as L, isCssColor as M, getCurrentInstanceName as N, useIcon as O, flattenFragments as P, hasEvent as Q, isObject as R, SUPPORTS_INTERSECTION as S, keyCodes as T, createError as U, resolveUnrefHeadInput as V, useHead as W, useRequestEvent as X, useRuntimeConfig as Y, useRequestFetch as Z, _export_sfc as _, convertToUnit as a, filterInputAttrs as a0, callEvent as a1, appPageTransition as a2, _wrapIf as a3, appKeepalive as a4, getUid as b, clearError as c, genericComponent as d, entry$1 as default, eventName as e, findChildrenWithProvide as f, getCurrentInstance as g, defineStore as h, isOn as i, provideTheme as j, useRtl as k, provideDefaults as l, makeThemeProps as m, navigateTo as n, clamp as o, propsFactory as p, useProxiedModel as q, useToggleScope as r, defineComponent as s, deprecate as t, useRouter as u, focusChild as v, getPropertyFromItem as w, pick as x, destructComputed as y, consoleError as z };
 //# sourceMappingURL=server.mjs.map

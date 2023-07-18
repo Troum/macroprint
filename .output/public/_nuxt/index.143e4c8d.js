@@ -1,1 +1,0 @@
-import{V as a,a as e}from"./VRow.8d0518cf.js";import{c as t,b as o,o as r,e as s}from"./entry.9732c54d.js";import"./tag.daba6275.js";const m={__name:"index",setup(c){return(p,n)=>(r(),t(a,{fluid:!0,class:"d-block pa-0 ma-0"},{default:o(()=>[s(e,{class:"pa-0"})]),_:1}))}};export{m as default};

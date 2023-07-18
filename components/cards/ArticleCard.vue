@@ -1,5 +1,5 @@
 <template>
-  <v-card :elevation="0" :height="567" class="pa-0" color="white" style="position: relative">
+  <v-card :to="`/company/articles/${article['slug']}`" :elevation="0" :height="567" class="pa-0" color="white" style="position: relative">
     <nuxt-img provider="strapi" :height="274" :src="article['image']" fit="cover"></nuxt-img>
     <v-card-subtitle class="article--subtitle">
       <svg-icon :path="mdiCalendar" :size="16" type="mdi"/>

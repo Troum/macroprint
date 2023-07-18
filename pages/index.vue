@@ -9,7 +9,7 @@
               <vueper-slide v-for="(slide, index) in page.slides" :key="index" class="pa-0">
                 <template #content>
                   <nuxt-img provider="strapi" :height="388"
-                            fit="cover"
+                            fit="fill"
                             :src="slide.image"></nuxt-img>
                 </template>
               </vueper-slide>
@@ -69,38 +69,64 @@
                    style="position: relative; min-height: 770px">
               <div class="title__container">
                 <h3 class="text-center text-white" style="width: 100%">Новости компании</h3>
-                <div class="d-flex justify-space-between align-center px-4" style="width: 100%;">
-                  <v-btn :flat="true"
-                         :ripple="false"
-                         class="article--button d-flex justify-start align-center px-0"
-                         variant="plain"
-                         style="width: fit-content; height: fit-content"
-                         @click="$refs.articlesCarousel.previous()">
-                    <svg-icon :path="mdiArrowLeftThin" type="mdi"/>
-                    <span>Предыдущие</span>
-                  </v-btn>
-                  <v-btn :flat="true"
-                         :ripple="false"
-                         class="article--button d-flex justify-start align-center px-0"
-                         style="width: fit-content; height: fit-content"
-                         variant="plain"
-                         @click="$refs.articlesCarousel.next()">
-                    <span>Следующие</span>
-                    <svg-icon :path="mdiArrowRightThin" type="mdi"/>
-                  </v-btn>
-                </div>
+                <template v-if="page['articles'].length > 1">
+                  <div class="d-flex justify-space-between align-center px-4" style="width: 100%;">
+                    <v-btn :flat="true"
+                           :ripple="false"
+                           class="article--button d-flex justify-start align-center px-0"
+                           variant="plain"
+                           style="width: fit-content; height: fit-content"
+                           @click="$refs.articlesCarousel.previous()">
+                      <svg-icon :path="mdiArrowLeftThin" type="mdi"/>
+                      <span>Предыдущие</span>
+                    </v-btn>
+                    <v-btn :flat="true"
+                           :ripple="false"
+                           class="article--button d-flex justify-start align-center px-0"
+                           style="width: fit-content; height: fit-content"
+                           variant="plain"
+                           @click="$refs.articlesCarousel.next()">
+                      <span>Следующие</span>
+                      <svg-icon :path="mdiArrowRightThin" type="mdi"/>
+                    </v-btn>
+                  </div>
+                </template>
               </div>
-              <div style="position: relative;" class="w-full">
-                <div style="position: absolute; width: 200%; left: -50%">
+              <template v-if="page['articles'].length > 2">
+                <div style="position: relative;" class="w-full">
+                  <div style="position: absolute; width: 200%; left: -50%">
+                    <vueper-slides
+                        ref="articlesCarousel"
+                        :arrows="false"
+                        :bullets="false"
+                        :dragging-distance="70"
+                        :gap="3"
+                        :slide-ratio="1 / 4"
+                        :visible-slides="3"
+                        class="no-shadow mt-6"
+                        fixed-height="600px"
+                        slide-multiple>
+                      <vueper-slide v-for="(article, index) in page['articles']" :key="index" class="pa-0">
+                        <template #content>
+                          <article-card :article="article"/>
+                        </template>
+                      </vueper-slide>
+                    </vueper-slides>
+                  </div>
+                </div>
+              </template>
+              <template v-else-if="page['articles'].length === 2">
+                <div style="position: relative;" class="w-full">
                   <vueper-slides
                       ref="articlesCarousel"
                       :arrows="false"
                       :bullets="false"
                       :dragging-distance="70"
-                      :gap="3"
+                      class="no-shadow"
+                      :visible-slides="2"
                       :slide-ratio="1 / 4"
-                      :visible-slides="3"
-                      class="no-shadow mt-6"
+                      :gap="5"
+                      :arrows-outside="false"
                       fixed-height="600px"
                       slide-multiple>
                     <vueper-slide v-for="(article, index) in page['articles']" :key="index" class="pa-0">
@@ -110,7 +136,12 @@
                     </vueper-slide>
                   </vueper-slides>
                 </div>
-              </div>
+              </template>
+              <template v-else>
+                <div style="position: relative;" class="d-flex justify-center align-center w-full mt-8">
+                  <article-card :article="page['articles'][0]"/>
+                </div>
+              </template>
             </v-col>
           </v-row>
         </template>

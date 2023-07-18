@@ -1,6 +1,6 @@
 <template>
-  <v-card :elevation="0" class="pa-0" color="white" style="position: relative">
-    <nuxt-img provider="strapi" :src="product['image']" fit="fill"></nuxt-img>
+  <v-card :to="`/products/${product['slug']}`" :elevation="0" class="pa-0" color="white" style="position: relative">
+    <nuxt-img provider="strapi" :src="product['image']" width="100%"></nuxt-img>
     <div class="product--icon__wrapper bg-secondary">
       <nuxt-img provider="strapi" :width="60" :src="product['icon']"></nuxt-img>
     </div>

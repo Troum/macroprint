@@ -57,7 +57,7 @@ export default defineNuxtConfig({
     piniaPersistedstate: {
         storage: 'localStorage'
     },
-    vite: {
+    /*vite: {
         server: {
           hmr: {
             protocol: "wss",
@@ -65,5 +65,5 @@ export default defineNuxtConfig({
             path: "hmr/",
           },
         },
-      }
+      }*/
 })
